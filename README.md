@@ -5,18 +5,20 @@ This is a simple project meant as an introduction to web scraping for me. This p
 ###How to use - 
 - Enter name of Movie
 - Choose Mode
+
 If Mode is 1 -
 - Confirm link
 - Confirm songs
 - Go grab a cup of coffee
 - Voila! All songs of the movie have been downloaded to the root folder !
-if Mode is 2 -
+
+If Mode is 2 -
 - Go grab a cup of coffee
 - Voila! All songs of the movie have been downloaded to the root folder !
 
 ###Modes - 
 - Mode 1 - Confirms after every step, for the paranoid :)
-- Mode 2 - Fully automatic downloading. 0.01% chance of error but you can always delete the songs. 
+- Mode 2 - Fully automatic downloading. 
 
 ### How to install - 
 - Install [Python 2.7](https://www.python.org/) or another 2.x version. Feel free to try it out on Python 3.x and do tell     me if it works.
