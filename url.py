@@ -6,15 +6,22 @@ from bs4 import SoupStrainer
 import sys
 import time
 
-def show_songs(songs):
-    print "The songs are - "
-    for song in songs:
-        print song[1]
-    confirm = raw_input("Download ? (Press Y or N) ")
-    if confirm == "Y" or confirm == "y" or confirm == "yes" or confirm == "Yes":
+def show_songs(songs,mode):
+    if mode == "1" :
+        print "The songs are - "
         for song in songs:
             print song[1]
-            urllib.urlretrieve(song[0], "{}.mp3".format(song[1]) , reporthook )
+        confirm = raw_input("Download ? (Press Y or N) ")
+        if confirm == "Y" or confirm == "y" or confirm == "yes" or confirm == "Yes":
+            for song in songs:
+                print song[1]
+                urllib.urlretrieve(song[0], "{}.mp3".format(song[1]) , reporthook )
+        else:
+            print "Aborting"
+    elif mode == "2":
+        for song in songs:
+            print song[1]
+            urllib.urlretrieve(song[0], "{}.mp3".format(song[1]) , reporthook )       
 
 
 def reporthook(a,b,c): 
@@ -22,7 +29,7 @@ def reporthook(a,b,c):
     print "% 3.1f%% of %d bytes\r" % (min(100, float(a * b) / c * 100), c),
     sys.stdout.flush()
 
-def get_songs(url):
+def get_songs(url,mode):
     page = urllib2.urlopen(url)
     soup = BeautifulSoup(page)
     links = soup.find_all("a")
@@ -34,7 +41,7 @@ def get_songs(url):
                 # print urllib.urlretrieve(link["href"], "{}.mp3".format(link.string) , reporthook )
         except KeyError:
             pass
-    show_songs(songs)
+    show_songs(songs,mode)
 
 def top_movies():
     soupstrainer = SoupStrainer("a")
@@ -51,17 +58,20 @@ def top_movies():
         # if "songid" in link.href:
         #   print link
 
-def get_link(links):
+def get_link(links,mode):
     count = 0
     found = False
     for link in links:
         if "mp3-songs" in link["href"] and count < 1:
-            confirm = raw_input("Confirm link to get_songs from - \n{} \nPress Y or N - ".format(link["href"]))
-            if confirm == "Y" or confirm == "y" or confirm == "yes" or confirm == "Yes":
-                get_songs(link["href"])
-                found = True
-            else:
-                "Aborting"
+            if mode == "1":
+                confirm = raw_input("Confirm link to get_songs from - \n{} \nPress Y or N - ".format(link["href"]))
+                if confirm == "Y" or confirm == "y" or confirm == "yes" or confirm == "Yes":
+                    get_songs(link["href"],mode)
+                    found = True
+                else:
+                    "Aborting"
+            elif mode == "2":
+                get_songs(link["href"],mode)
             count += 1
             # print (link["href"] , "{}.mp3".format(link.string))
             # print urllib.urlretrieve(link["href"], "{}.mp3".format(link.string) , reporthook )
@@ -71,6 +81,8 @@ def get_link(links):
         #   print lin
 
 def start():
+    mode = raw_input("Press 1 for confirmation mode or 2 for I'm feeling Lucky - ")
+
     input = raw_input("Enter the name of movie - ")
     input = input.lower()
     input = input.split(" ")
@@ -85,6 +97,6 @@ def start():
     soup = BeautifulSoup(page)
     links = soup.find_all("a" , limit = 10)
 
-    get_link(links)
+    get_link(links,mode)
 
 start()
