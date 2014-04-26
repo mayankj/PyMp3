@@ -4,6 +4,8 @@ This is a simple project meant as an introduction to web scraping for me. This p
 
 ###How to use - 
 - Enter name of Movie
+- Confirm link
+- Confirm songs
 - Go grab a cup of coffee
 - Voila! All songs of the movie have been downloaded to the root folder !
 
@@ -12,5 +14,11 @@ This is a simple project meant as an introduction to web scraping for me. This p
 - Install [Beautiful Soup 4](www.crummy.com/software/BeautifulSoup).
 - Download the script.
 - Run and Enjoy !
+
+### Feature List -
+- [x] User Input
+- [x] Song List 
+- [ ] Different modes
+- [ ] Download specific songs
 
 #####Disclaimer- This is only meant as a recreative project, please ensure that you already own the songs which you download. All the songs are the property of the original creators
